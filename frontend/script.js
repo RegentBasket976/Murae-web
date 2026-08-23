@@ -1,50 +1,34 @@
-// Funciones calculo simple 1 //
-function configurarBotonesCompra() {
-  const botonesComprar = document.querySelectorAll('#Productos button');
+document.addEventListener("DOMContentLoaded", function() {
 
-  botonesComprar.forEach(function(boton) {
-    boton.addEventListener('click', function(evento) {
-      
-      const articulo = evento.target.closest('article');
-      const nombreProducto = articulo.querySelector('h3').textContent;
+    const formulario = document.querySelector("#formulario");
 
-      let precioFijo = 25000; 
-      let cantidadTexto = prompt("Elegiste: " + nombreProducto + ".\n¿Cuántas unidades deseas llevar?");
+    formulario.addEventListener("submit", function(evento) {
+        evento.preventDefault();
 
-      if (cantidadTexto !== null && cantidadTexto !== "") {
-        let cantidad = parseInt(cantidadTexto);
+        const nombre = document.querySelector("#nombre").value.trim();
+        const apellido = document.querySelector("#apellido").value.trim();
+        const curso = document.querySelector("#curso").value;
 
-        if (cantidad > 0) {
-          let totalPagar = precioFijo * cantidad;
-          alert("El total a pagar por " + cantidad + " unidades es de $" + totalPagar);
+        if (nombre === "") {
+            alert("Por favor, ingresa tu nombre para poder enviar el formulario.");
+
+        } else if (apellido === "") {
+            alert("Por favor, ingresa tu apellido para poder enviar el formulario.");
+
         } else {
-          alert("Por favor ingresa un número válido mayor a 0.");
+          if (curso !== "Ninguno") {
+            alert(`¡Hola, ${nombre} ${apellido}! Hemos recibido tu solicitud para la clase de "${curso}". Nos pondremos en contacto contigo muy pronto vía WhatsApp o correo electrónico para validar al 100% la inscripcion.`);
+          } else {
+            alert(`¡Hola, ${nombre} ${apellido}! Hemos recibido tus datos y nos pondremos en contacto contigo muy pronto vía WhatsApp o correo electrónico.`);
+          }
+          formulario.reset();
         }
-      }
     });
-  });
-}
-
-// Funciones calculo simple 2 //
-function configurarCiudadEnvio() {
-  let listaCiudades = document.querySelector("select");
-
-  listaCiudades.addEventListener("change", function() {
-    
-    let ciudadSeleccionada = listaCiudades.value;
-    let costoEnvio = 0;
-
-    if (ciudadSeleccionada === "Barranquilla" || ciudadSeleccionada === "Soledad") {
-      costoEnvio = 5000;
-    } else {
-      costoEnvio = 15000;
-    }
-
-    alert("Como seleccionaste " + ciudadSeleccionada + ", el costo extra de envío será de $" + costoEnvio);
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  configurarBotonesCompra();
-  configurarCiudadEnvio();
 });
+
+function seleccionarClase(nombreClase) {
+  const seleccionarCurso = document.getElementById("curso");
+  if (seleccionarCurso) {
+    seleccionarCurso.value = nombreClase;
+  }
+}

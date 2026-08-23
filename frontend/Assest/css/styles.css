@@ -359,3 +359,36 @@ footer p {
   font-size: 0.95rem;
   color: #666;
 }
+
+#Acerca, #Clases {
+  background-color: var(--color-tarjeta);
+  padding: 6rem 5%;
+  text-align: center;
+  border-top: 1px solid var(--color-bordes);
+}
+
+#Acerca h2, #Clases h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-clase {
+  background: transparent;
+  color: var(--color-primario);
+  border: 2px solid var(--color-primario);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 80%;
+  margin-top: 1.5rem;
+  transition: 0.3s ease;
+  display: inline-block; 
+  text-decoration: none; 
+  text-align: center;
+}
+
+.btn-clase:hover {
+  background: var(--color-primario);
+  color: #fff;
+}
