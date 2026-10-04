@@ -98,44 +98,75 @@
         <h3>Historia Creativa</h3>
         <p>Explora los grandes eventos de la historia y movimientos artísticos del pasado como mitologias, epocas o periodos para asi nutrir tus creaciones en el presente.</p>
         <img src="./Assest/img/Historia Creativa.png" alt="Historia Creativa" width="250" height="250">
-        <a href="#Contactos" class="btn-clase" onclick="seleccionarClase('Historia Creativa')">Inscribirse</a>
+        <a href="#formularioClases" class="btn-clase" onclick="seleccionarClase('Historia Creativa')">Inscribirse</a>
       </article>
       <article class="acerca-caja">
         <h3>Taller de Arte Manual</h3>
         <p>Aprende técnicas de pintura y personalización sobre lienzos, tazas y figuras de madera mientras aprendes sobre la historia de dichos objetos o  temas relacionados.</p>
         <img src="./Assest/img/arte manual.jpg" alt="Arte manual" width="250" height="250">
-        <a href="#Contactos" class="btn-clase" onclick="seleccionarClase('Taller de Arte Manual')">Inscribirse</a>
+        <a href="#formularioClases" class="btn-clase" onclick="seleccionarClase('Taller de Arte Manual')">Inscribirse</a>
       </article>
       <article class="acerca-caja">
         <h3>Pensamiento y Diseño</h3>
         <p>Desarrolla tu visión crítica al maximo. Un espacio de diálogo y bocetaje para conceptualizar obras con trasfondo historico.</p>
         <img src="./Assest/img/Pensamiento y Diseño.jpg" alt="Pensamiento y Diseño" width="250" height="250">
-        <a href="#Contactos" class="btn-clase" onclick="seleccionarClase('Pensamiento y Diseño')">Inscribirse</a>
+        <a href="#formularioClases" class="btn-clase" onclick="seleccionarClase('Pensamiento y Diseño')">Inscribirse</a>
       </article>
     </div>
-  </section>
+
+    <form id="formularioClases">
+      <fieldset>
+        <legend>Inscripción a clases</legend>
+        <label for="nombreClase">
+          Nombre
+          <input type="text" id="nombreClase" name="nombre" placeholder="Escriba su nombre">
+        </label>
+        <label for="apellidoClase">
+          Apellido
+          <input type="text" id="apellidoClase" name="apellido" placeholder="Escriba su apellido">
+        </label>
+        <label for="correoClase">
+          Correo
+          <input type="email" id="correoClase" name="correo" placeholder="Escriba su correo" required>
+        </label>
+        <label for="celularClase">
+          Telefono celular
+          <input type="tel" id="celularClase" name="celular" placeholder="Agregue su numero celular" inputmode="numeric" maxlength="10" required>
+        </label>
+        <label for="cursoClase">
+          Clase a la que desea inscribirse
+          <select id="cursoClase" name="curso">
+            <option value="">Elige una clase</option>
+            <option value="Historia Creativa">Historia Creativa</option>
+            <option value="Taller de Arte Manual">Taller de Arte Manual</option>
+            <option value="Pensamiento y Diseño">Pensamiento y Diseño</option>
+          </select>
+        </label>
+      </fieldset>
+      <button type="submit">Inscribirme</button>
+    </form>
   </section>
 
   <section id="Contactos">
     <h2>Contacta con nosotros</h2>
-    <p>Si quieres saber más sobre nuestros productos, si quieres contactar con nosotros o si quiere inscribirse a uno de nuestros cursos, puedes hacerlo a través de nuestro formulario de contacto.</p>
+    <p>Si quieres saber más sobre nuestros productos o quieres contactar con nosotros, puedes hacerlo a través de nuestro formulario de contacto. Si deseas inscribirte a una clase, hazlo en la sección <a href="#Clases">Clases en Murae</a>.</p>
     <form id="formulario">
       <fieldset>
       <legend>Informacion Personal</legend>
       <label for="nombre">
         Nombre
-        <input type="text" id="nombre" placeholder="Escriba su nombre">
+        <input type="text" id="nombre" name="nombre" placeholder="Escriba su nombre">
       </label>
       <label for="apellido">
         Apellido
-        <input type="text" id="apellido" placeholder="Escriba su apellido">
+        <input type="text" id="apellido" name="apellido" placeholder="Escriba su apellido">
       </label>
     </fieldset>
     <fieldset>
       <legend>Información de contacto</legend>
       <label for="ciudad">
         Ciudad
-        <select name="" id="">
+        <select name="ciudad" id="ciudad">
           <option value="Elige">Elige una opcion</option>
           <option value="Barranquilla">Barranquilla</option>
           <option value="Soledad">Soledad</option>
@@ -145,27 +176,18 @@
       </label>
       <label for="correo">
         Correo
-        <input type="email" id="correo" placeholder="Escriba su correo" required>
+        <input type="email" id="correo" name="correo" placeholder="Escriba su correo" required>
       </label>
       <label for="celular">
         Telefono celular
-        <input type="codigo" id="celular" placeholder="Agregue su numero celular" inputmode="numeric" maxlength="10" required>
+        <input type="tel" id="celular" name="celular" placeholder="Agregue su numero celular" inputmode="numeric" maxlength="10" required>
       </label>
       <label for="pregunta">
         Preguntas:
-        <textarea name="text" id="pregunta" placeholder="Opcional escribir pregunta o duda especifica. Si el campo esta vacio nos comunicaremos para aclarar dudas o aportar mas informacion que necesite"></textarea>
-      </label>
-      <label for="curso">
-        Clase de interés: (Si desea tomarla)
-        <select id="curso">
-          <option value="Ninguno">Solo quiero información general</option>
-          <option value="Historia Creativa">Historia Creativa</option>
-          <option value="Taller de Arte Manual">Taller de Arte Manual</option>
-          <option value="Pensamiento y Diseño">Pensamiento y Diseño</option>
-         </select>
+        <textarea name="pregunta" id="pregunta" placeholder="Opcional escribir pregunta o duda especifica. Si el campo esta vacio nos comunicaremos para aclarar dudas o aportar mas informacion que necesite"></textarea>
       </label>
     </fieldset>
-    <button>Enviar</button>
+    <button type="submit">Enviar</button>
     </form>
   </section>
 
