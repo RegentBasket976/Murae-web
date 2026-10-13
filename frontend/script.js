@@ -20,6 +20,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    const modalClases = document.querySelector("#modalClases");
+
+    document.querySelector("#cerrarModalClases").addEventListener("click", function() {
+        modalClases.close();
+    });
+
+    modalClases.addEventListener("click", function(evento) {
+        if (evento.target === modalClases) {
+            modalClases.close();
+        }
+    });
+
     const formularioClases = document.querySelector("#formularioClases");
 
     formularioClases.addEventListener("submit", async function(evento) {
@@ -68,8 +80,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 throw new Error("Respuesta del servidor: " + respuesta.status);
             }
 
-            alert(`¡Hola, ${nombre} ${apellido}! Hemos recibido tu solicitud para la clase de "${curso}". Nos pondremos en contacto contigo muy pronto vía WhatsApp o correo electrónico para validar al 100% la inscripcion.`);
             formularioClases.reset();
+            modalClases.close();
+            alert(`¡Hola, ${nombre} ${apellido}! Hemos recibido tu solicitud para la clase de "${curso}". Nos pondremos en contacto contigo muy pronto vía WhatsApp o correo electrónico para validar al 100% la inscripcion.`);
 
         } catch (error) {
             console.error(error);
@@ -88,5 +101,9 @@ function seleccionarClase(nombreClase) {
   const seleccionarCurso = document.getElementById("cursoClase");
   if (seleccionarCurso) {
     seleccionarCurso.value = nombreClase;
+  }
+  const modal = document.getElementById("modalClases");
+  if (modal) {
+    modal.showModal();
   }
 }
