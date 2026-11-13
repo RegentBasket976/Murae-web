@@ -2,11 +2,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const formulario = document.querySelector("#formulario");
 
-    formulario.addEventListener("submit", function(evento) {
+    formulario.addEventListener("submit", async function(evento) {
         evento.preventDefault();
 
         const nombre = document.querySelector("#nombre").value.trim();
         const apellido = document.querySelector("#apellido").value.trim();
+        const ciudad = document.querySelector("#ciudad").value;                
+        const correo = document.querySelector("#correo").value.trim();         
+        const celular = document.querySelector("#celular").value.trim();       
+        const pregunta = document.querySelector("#pregunta").value.trim();     
 
         if (nombre === "") {
             alert("Por favor, ingresa tu nombre para poder enviar el formulario.");
@@ -14,9 +18,47 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (apellido === "") {
             alert("Por favor, ingresa tu apellido para poder enviar el formulario.");
 
+        } else if (correo === "") {                                            
+            alert("Por favor, ingresa tu correo para poder enviar el formulario.");
+
+        } else if (!/^\d{10}$/.test(celular)) {                                
+            alert("Por favor, ingresa un número de celular válido de 10 dígitos.");
+
         } else {
-          alert(`¡Hola, ${nombre} ${apellido}! Hemos recibido tus datos y nos pondremos en contacto contigo muy pronto vía WhatsApp o correo electrónico.`);
-          formulario.reset();
+          const boton = formulario.querySelector("button");                    
+          const textoOriginal = boton.textContent;                             
+          boton.disabled = true;                                               
+          boton.textContent = "Enviando...";                                   
+
+          try {                                                                
+            const respuesta = await fetch(API_CONTACTO, {                      
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    nombre,
+                    apellido,
+                    ciudad: ciudad === "Elige" ? "" : ciudad,
+                    correo,
+                    celular,
+                    pregunta
+                })
+            });
+
+            if (!respuesta.ok) {
+                throw new Error("Respuesta del servidor: " + respuesta.status);
+            }
+
+            alert(`¡Hola, ${nombre} ${apellido}! Hemos recibido tus datos y nos pondremos en contacto contigo muy pronto vía WhatsApp o correo electrónico.`);
+            formulario.reset();
+
+          } catch (error) {                                                    
+            console.error(error);
+            alert("No pudimos enviar tus datos en este momento. Por favor, inténtalo de nuevo en unos minutos.");
+
+          } finally {                                                          
+            boton.disabled = false;
+            boton.textContent = textoOriginal;
+          }
         }
     });
 
@@ -96,6 +138,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 const API_CLASES = "/api/clases";
+
+const API_CONTACTO = "/api/contacto";   
 
 function seleccionarClase(nombreClase) {
   const seleccionarCurso = document.getElementById("cursoClase");
