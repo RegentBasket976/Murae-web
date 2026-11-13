@@ -1,16 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Lato:wght@300;400;700&display=swap');
 
 :root {
-  --color-fondo: #F9F8F6; 
+  --color-fondo: #F9F8F6;
   --color-texto: #3A3A3A;
-  --color-primario: #000000; 
-  --color-acento: #000000; 
+  --color-primario: #000000;
+  --color-acento: #000000;
   --color-tarjeta: #FFFFFF;
   --color-bordes: #E5E3DC;
-  
+
+  --color-ciruela: #07cbf6;
+  --color-ciruela-suave: rgba(74, 44, 102, 0.18);
+  --color-dorado: #B8975A;
+
   --fuente-titulos: 'Playfair Display', serif;
   --fuente-texto: 'Lato', sans-serif;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -19,6 +24,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -28,13 +34,25 @@ body {
   line-height: 1.6;
 }
 
+::selection {
+  background: var(--color-ciruela);
+  color: #fff;
+}
+
 h1, h2, h3, legend {
   font-family: var(--fuente-titulos);
   color: var(--color-primario);
 }
 
+:focus-visible {
+  outline: 3px solid var(--color-dorado);
+  outline-offset: 3px;
+}
+
+
 header {
-  background-color: var(--color-primario);
+  background-color: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(8px);
   padding: 1.2rem 5%;
   display: flex;
   justify-content: space-between;
@@ -58,30 +76,81 @@ nav ul {
 }
 
 nav a {
+  position: relative;
   text-decoration: none;
   color: #D5DCE2;
   font-weight: 400;
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  padding: 4px 0;
   transition: color 0.3s ease;
 }
 
-nav a:hover {
-  color: var(--color-acento);
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--color-dorado);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
 }
 
+nav a:hover {
+  color: #fff;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+
 #Hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   text-align: center;
   padding: 7rem 2rem;
   background: linear-gradient(to bottom, #EAE7DC 0%, #F9F8F6 100%);
   border-bottom: 1px solid var(--color-bordes);
 }
 
+
+#Hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 42%;
+  left: 50%;
+  width: min(720px, 120%);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-ciruela-suave) 0%, transparent 65%);
+  animation: respirar 9s ease-in-out infinite;
+}
+
 #Hero h2 {
   font-size: 3.2rem;
   margin-bottom: 1.5rem;
   color: var(--color-primario);
+  animation: entrada 0.9s ease 0.1s backwards;
+}
+
+#Hero img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+  border-radius: 14px;
+  box-shadow: 0 25px 55px rgba(74, 44, 102, 0.25);
+  animation:
+    entrada 1s ease 0.3s backwards,
+    flotar 7s ease-in-out 1.3s infinite;
 }
 
 #Hero p {
@@ -90,7 +159,35 @@ nav a:hover {
   font-size: 1.2rem;
   color: #555;
   line-height: 1.8;
+  animation: entrada 0.9s ease 0.55s backwards;
 }
+
+@keyframes entrada {
+  from { opacity: 0; transform: translateY(28px); }
+}
+
+@keyframes flotar {
+  50% { translate: 0 -12px; }
+}
+
+@keyframes respirar {
+  50% { scale: 1.18; opacity: 0.65; }
+}
+
+
+#Productos h2::after,
+#Clases h2::after,
+#Contactos h2::after,
+#Acerca h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  margin: 0.9rem auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--color-dorado), var(--color-ciruela));
+}
+
 
 #Productos {
   padding: 6rem 5%;
@@ -98,6 +195,7 @@ nav a:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 2.5rem;
+  background: linear-gradient(180deg, var(--color-fondo) 0%, #F3F0E8 100%);
 }
 
 #Productos h2 {
@@ -108,13 +206,15 @@ nav a:hover {
 }
 
 #Productos article {
+  position: relative;
+  overflow: hidden;
   background-color: var(--color-tarjeta);
   width: 100%;
   max-width: 320px;
   border-radius: 12px;
   padding: 1.8rem;
   box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,14 +222,39 @@ nav a:hover {
   border: 1px solid var(--color-bordes);
 }
 
+
+#Productos article::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-dorado), var(--color-ciruela));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s ease;
+}
+
 #Productos article:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+  box-shadow: 0 18px 40px rgba(74, 44, 102, 0.18);
+}
+
+#Productos article:hover::before {
+  transform: scaleX(1);
 }
 
 #Productos h3 {
   font-size: 1.4rem;
   margin-bottom: 1rem;
+}
+
+
+#Productos article h3:nth-of-type(2) {
+  color: var(--color-ciruela);
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
 }
 
 #Productos img {
@@ -139,6 +264,11 @@ nav a:hover {
   border-radius: 8px;
   margin-bottom: 1.2rem;
   border: 1px solid #f0f0f0;
+  transition: transform 0.5s ease;
+}
+
+#Productos article:hover img {
+  transform: scale(1.04);
 }
 
 #Productos p {
@@ -149,7 +279,7 @@ nav a:hover {
 }
 
 #Productos button {
-  background-color: var(--color-primario);
+  background: linear-gradient(90deg, var(--color-primario) 50%, var(--color-ciruela) 50%) 0 0 / 200% 100%;
   color: #fff;
   border: none;
   padding: 12px 25px;
@@ -158,16 +288,134 @@ nav a:hover {
   font-weight: 700;
   cursor: pointer;
   width: 80%;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 #Productos button:hover {
-  background-color: var(--color-acento);
+  background-position: 100% 0;
   transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(74, 44, 102, 0.3);
 }
 
+
+#Acerca, #Clases {
+  background-color: var(--color-tarjeta);
+  padding: 6rem 5%;
+  text-align: center;
+  border-top: 1px solid var(--color-bordes);
+}
+
+#Acerca h2, #Clases h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.acerca-intro {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  font-size: 1.15rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+.acerca-contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.acerca-caja {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-bordes);
+  border-radius: 12px;
+  padding: 2rem;
+  flex: 1;
+  min-width: 280px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  text-align: center;
+}
+
+.acerca-caja::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-dorado), var(--color-ciruela));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s ease;
+}
+
+.acerca-caja:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(74, 44, 102, 0.15);
+}
+
+.acerca-caja:hover::before {
+  transform: scaleX(1);
+}
+
+.acerca-caja h3 {
+  font-size: 1.4rem;
+  color: var(--color-acento);
+  margin-bottom: 1rem;
+}
+
+.acerca-caja p {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.acerca-caja img {
+  display: block;
+  margin: 1.2rem auto 0;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.5s ease;
+}
+
+.acerca-caja:hover img {
+  transform: scale(1.04);
+}
+
+.btn-clase {
+  background: linear-gradient(to top, var(--color-primario) 50%, transparent 50%) 0 0 / 100% 200% no-repeat;
+  color: var(--color-primario);
+  border: 2px solid var(--color-primario);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 80%;
+  margin-top: 1.5rem;
+  transition: background-position 0.35s ease, color 0.35s ease;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-clase:hover {
+  background-position: 0 100%;
+  color: #fff;
+}
+
+
 #Contactos {
-  background-color: #F1EFE7;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(184, 151, 90, 0.16), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(74, 44, 102, 0.10), transparent 45%),
+    #F1EFE7;
   padding: 6rem 5%;
   text-align: center;
 }
@@ -181,6 +429,11 @@ nav a:hover {
   max-width: 600px;
   margin: 0 auto 3rem auto;
   color: #555;
+}
+
+#Contactos > p a {
+  color: var(--color-ciruela);
+  font-weight: 700;
 }
 
 form {
@@ -199,6 +452,11 @@ fieldset {
   padding: 2rem 1.5rem;
   margin-bottom: 2rem;
   background-color: #FAFAFA;
+  transition: border-color 0.3s ease;
+}
+
+fieldset:focus-within {
+  border-color: var(--color-dorado);
 }
 
 legend {
@@ -228,8 +486,8 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--color-acento);
-  box-shadow: 0 0 0 3px rgba(211, 107, 70, 0.2);
+  border-color: var(--color-ciruela);
+  box-shadow: 0 0 0 3px rgba(74, 44, 102, 0.2);
 }
 
 textarea {
@@ -238,7 +496,7 @@ textarea {
 }
 
 form button {
-  background-color: var(--color-acento);
+  background: linear-gradient(90deg, var(--color-acento) 50%, var(--color-ciruela) 50%) 0 0 / 200% 100%;
   color: #fff;
   border: none;
   padding: 16px 30px;
@@ -250,154 +508,23 @@ form button {
   width: 100%;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: background-color 0.3s ease;
+  transition: background-position 0.4s ease, box-shadow 0.3s ease;
 }
 
 form button:hover {
-  background-color: #8d8b8b;
+  background-position: 100% 0;
+  box-shadow: 0 8px 20px rgba(74, 44, 102, 0.3);
 }
 
-footer {
-  background-color: #000000;
-  color: #ffffff;
-  text-align: center;
-  padding: 3rem 5%;
-  font-size: 0.95rem;
+form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-footer p {
-  margin: 0.5rem 0;
+#Clases form {
+  margin-top: 3rem;
 }
 
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
-  }
-  
-  nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.2rem;
-  }
-  
-  #Hero {
-    padding: 5rem 1.5rem;
-  }
-  
-  #Hero h2 {
-    font-size: 2.5rem;
-  }
-  
-  #Productos h2 {
-    font-size: 2.2rem;
-  }
-  
-  form {
-    padding: 1.5rem;
-  }
-  
-  fieldset {
-    padding: 1.5rem 1rem;
-  }
-}
-
-#Acerca {
-  background-color: var(--color-tarjeta);
-  padding: 6rem 5%;
-  text-align: center;
-  border-top: 1px solid var(--color-bordes);
-}
-
-#Acerca h2 {
-  font-size: 2.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.acerca-intro {
-  max-width: 800px;
-  margin: 0 auto 3rem auto;
-  font-size: 1.15rem;
-  color: #555;
-  line-height: 1.8;
-}
-
-.acerca-contenedor {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.acerca-caja {
-  background-color: var(--color-fondo);
-  border: 1px solid var(--color-bordes);
-  border-radius: 12px;
-  padding: 2rem;
-  flex: 1;
-  min-width: 280px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
-}
-
-.acerca-caja:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-
-.acerca-caja h3 {
-  font-size: 1.4rem;
-  color: var(--color-acento);
-  margin-bottom: 1rem;
-}
-
-.acerca-caja p {
-  font-size: 0.95rem;
-  color: #666;
-}
-
-#Acerca, #Clases {
-  background-color: var(--color-tarjeta);
-  padding: 6rem 5%;
-  text-align: center;
-  border-top: 1px solid var(--color-bordes);
-}
-
-#Acerca h2, #Clases h2 {
-  font-size: 2.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.btn-clase {
-  background: transparent;
-  color: var(--color-primario);
-  border: 2px solid var(--color-primario);
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-weight: 700;
-  cursor: pointer;
-  width: 80%;
-  margin-top: 1.5rem;
-  transition: 0.3s ease;
-  display: inline-block; 
-  text-decoration: none; 
-  text-align: center;
-}
-
-.btn-clase:hover {
-  background: var(--color-primario);
-  color: #fff;
-}
-
-#Hero img {
-  max-width: 100%;
-  height: auto;
-  max-height: 400px;
-}
 
 #modalClases {
   border: none;
@@ -409,10 +536,20 @@ footer p {
   max-height: 90vh;
   overflow-y: auto;
   background-color: var(--color-tarjeta);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+#modalClases[open] {
+  animation: abrir-modal 0.35s ease;
 }
 
 #modalClases::backdrop {
   background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+#modalClases[open]::backdrop {
+  animation: fundir 0.35s ease;
 }
 
 #modalClases form {
@@ -430,4 +567,101 @@ footer p {
   line-height: 1;
   cursor: pointer;
   color: var(--color-primario);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.cerrar-modal:hover {
+  transform: rotate(90deg);
+  color: var(--color-ciruela);
+}
+
+@keyframes abrir-modal {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+}
+
+@keyframes fundir {
+  from { opacity: 0; }
+}
+
+
+footer {
+  background-color: #000000;
+  color: #ffffff;
+  text-align: center;
+  padding: 3rem 5%;
+  font-size: 0.95rem;
+  border-top: 3px solid var(--color-dorado);
+}
+
+footer p {
+  margin: 0.5rem 0;
+}
+
+
+@supports (animation-timeline: scroll()) {
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 2000;
+    background: linear-gradient(90deg, var(--color-dorado), var(--color-ciruela));
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: progreso linear both;
+    animation-timeline: scroll(root);
+  }
+
+  @keyframes progreso {
+    to { transform: scaleX(1); }
+  }
+}
+
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+
+  html {
+    scroll-padding-top: 150px;
+  }
+
+  #Hero {
+    padding: 5rem 1.5rem;
+  }
+
+  #Hero h2 {
+    font-size: 2.5rem;
+  }
+
+  #Productos h2 {
+    font-size: 2.2rem;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  fieldset {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
