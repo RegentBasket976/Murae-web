@@ -665,3 +665,194 @@ footer p {
     scroll-behavior: auto !important;
   }
 }
+
+[hidden] {
+  display: none !important;
+}
+
+/* Botón del carrito en el menú */
+.boton-carrito {
+  background: transparent;
+  color: #fff;
+  border: 1px solid var(--color-dorado);
+  border-radius: 25px;
+  padding: 6px 16px;
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.boton-carrito:hover {
+  background: var(--color-dorado);
+  color: #000;
+  transform: scale(1.05);
+}
+
+.boton-carrito span {
+  font-weight: 700;
+}
+
+/* Contenido de la ventana */
+.carrito-contenido {
+  padding: 2.5rem 2rem 0.5rem;
+}
+
+.carrito-contenido h3 {
+  font-size: 1.7rem;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+#carritoVacio {
+  text-align: center;
+  color: #666;
+  padding: 1rem 0 2.5rem;
+}
+
+#listaCarrito {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.carrito-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-bordes);
+  border-radius: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carrito-item:hover {
+  border-color: var(--color-dorado);
+  box-shadow: 0 4px 14px rgba(74, 44, 102, 0.1);
+}
+
+.carrito-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.carrito-item-info strong {
+  font-family: var(--fuente-titulos);
+  color: var(--color-primario);
+}
+
+.carrito-item-info span {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.carrito-cantidad {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.carrito-cantidad span {
+  min-width: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.carrito-cantidad button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-primario);
+  background: transparent;
+  color: var(--color-primario);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.carrito-cantidad button:hover {
+  background: var(--color-primario);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.carrito-subtotal {
+  min-width: 5.5rem;
+  text-align: right;
+  font-weight: 700;
+  color: var(--color-ciruela);
+}
+
+.btn-quitar {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.btn-quitar:hover {
+  color: var(--color-ciruela);
+}
+
+.carrito-total {
+  margin-top: 1.2rem;
+  padding-top: 0.9rem;
+  border-top: 2px solid var(--color-dorado);
+  text-align: right;
+  font-family: var(--fuente-titulos);
+  font-size: 1.6rem;
+  color: var(--color-primario);
+}
+
+.btn-vaciar {
+  display: block;
+  margin: 0.4rem 0 0.5rem auto;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.btn-vaciar:hover {
+  color: var(--color-ciruela);
+}
+
+#modalCarrito form {
+  padding: 1.5rem 2rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .carrito-contenido {
+    padding: 2.5rem 1rem 0.5rem;
+  }
+
+  .carrito-item {
+    grid-template-columns: auto 1fr auto;
+    gap: 0.6rem 1rem;
+  }
+
+  .carrito-item-info {
+    grid-column: 1 / -1;
+  }
+
+  #modalCarrito form {
+    padding: 1rem 1rem 1.5rem;
+  }
+
+  .boton-carrito {
+    padding: 5px 14px;
+  }
+}
