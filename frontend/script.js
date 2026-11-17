@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    /* ---------- Formulario general de contacto ---------- */
+    // Formulario general de contacto //
     const formulario = document.querySelector("#formulario");
 
     formulario.addEventListener("submit", async function(evento) {
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    /* ---------- Ventana emergente de inscripción ---------- */
+    // Ventana emergente de inscripción //
     const modalClases = document.querySelector("#modalClases");
 
     document.querySelector("#cerrarModalClases").addEventListener("click", function() {
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    /* ---------- Formulario de inscripción a clases (asíncrono) ---------- */
+    // Formulario de inscripción a clases (asíncrono) //
     const formularioClases = document.querySelector("#formularioClases");
 
     formularioClases.addEventListener("submit", async function(evento) {
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    /* ---------- Carrito de compras ---------- */
+    // Carrito de compras //
     const CLAVE_CARRITO = "carritoMurae";
     const MAX_POR_PRODUCTO = 20;
 
@@ -405,7 +405,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     correo,
                     celular,
                     ciudad,
-                    // Solo se envía qué producto y cuántos: el precio lo calcula el servidor
                     items: carrito.map(function(item) {
                         return { producto: item.producto, cantidad: item.cantidad };
                     })
@@ -416,7 +415,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 const datos = await respuesta.json().catch(function() {
                     return {};
                 });
-                // Datos inválidos o demasiados envíos: se le muestra el motivo al visitante
                 if (respuesta.status === 400 || respuesta.status === 429) {
                     alert(datos.mensaje || "No pudimos procesar tu pedido. Revisa los datos e inténtalo de nuevo.");
                     return;
@@ -445,14 +443,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-/* ---------- Direcciones del servidor ---------- */
+// Direcciones del servidor //
 const API_CLASES = "/api/clases";
 
 const API_CONTACTO = "/api/contacto";
 
 const API_PEDIDOS = "/api/pedidos";
 
-/* ---------- Botones "Inscribirse" de las clases ---------- */
+// Botones "Inscribirse" de las clases //
 function seleccionarClase(nombreClase) {
   const seleccionarCurso = document.getElementById("cursoClase");
   if (seleccionarCurso) {
